@@ -1,0 +1,152 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>OLYMPIC RINGS</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 400px;
+    }
+
+    .rainbow-text {
+      background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .animated-rainbow {
+      animation: rainbow-animation 3s linear infinite;
+    }
+
+    @keyframes rainbow-animation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .copy-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .copy-btn:hover {
+      background-color: #0056b3;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8em;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="rainbow-text animated-rainbow">OLYMPIC RINGS TURTLE</p>
+
+    <button class="copy-btn" onclick="copyCode()">click this to copy the code</button>
+    
+    <pre><code id="code-block">
+import turtle
+# draw a circle with position
+def draw_circle(color, x, y):
+    turtle.penup()
+    turtle.goto(x, y)
+    turtle.pendown()
+    turtle.color(color)
+    turtle.circle(50)
+
+# Set up the screen
+turtle.bgcolor("white")
+turtle.speed(5)
+
+# Draw the Olympic rings
+draw_circle("blue", -120, 0)
+draw_circle("black", 0, 0)
+draw_circle("red", 120, 0)
+draw_circle("yellow", -60, -50)
+draw_circle("green", 60, -50)
+
+turtle.hideturtle()
+turtle.done()
+    </code></pre>
+
+    <p>𝗧𝗜𝗠𝗘𝗭𝗢𝗡𝗘: <span id="timezone">Loading...</span></p>
+    <p>𝗖𝗨𝗥𝗥𝗘𝗡𝗧 𝗧𝗜𝗠𝗘: <span id="times">Loading...</span></p>
+    <p>𝗖𝗨𝗥𝗥𝗘𝗡𝗧 𝗗𝗔𝗧𝗘: <span id="date">Loading...</span></p>
+
+    <footer>
+      © 𝗖𝗢𝗣𝗬𝗥𝗜𝗚𝗛𝗧 <a href="https://www.facebook.com/profile.php?id=61550037082227">JAY</a> 𝗔𝗟𝗟 𝗥𝗜𝗚𝗛𝗧𝗦 𝗥𝗘𝗦𝗘𝗥𝗩𝗘𝗗 2024.
+    </footer>
+  </div>
+
+  <script>
+    function copyCode() {
+      // Get the code block text
+      const code = document.getElementById('code-block').innerText;
+
+      // Create a temporary textarea element to copy the text from
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = code;
+      document.body.appendChild(tempTextArea);
+      
+      // Select the text and copy it to clipboard
+      tempTextArea.select();
+      document.execCommand('copy');
+      
+      // Remove the temporary textarea
+      document.body.removeChild(tempTextArea);
+
+      alert('code copied to clipboard!');
+    }
+
+    async function fetchIPInfo() {
+      try {
+        const response = await fetch('https://ipinfo.io/json');
+        const data = await response.json();
+        document.getElementById('timezone').textContent = data.timezone;
+      } catch (error) {
+        console.error('Error fetching IP info:', error);
+      }
+    }
+
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('times').textContent = now.toLocaleTimeString();
+      document.getElementById('date').text
+Content = now.toLocaleDateString();
+    }
+
+    fetchIPInfo();
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
